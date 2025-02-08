@@ -6,6 +6,7 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #ffff99;
 }
 
 /* Center the content inside the container */
@@ -31,6 +32,7 @@ h1 {
 .category-btn {
   border: 2px solid black;
   padding: 10px 15px;
+  border-radius: 10px;
   font-size: 1rem;
   cursor: pointer;
   transition: 0.2s;

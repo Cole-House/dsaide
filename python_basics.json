@@ -1,0 +1,102 @@
+[
+    {
+      "name": "Fizz Buzz",
+      "difficulty": "Easy",
+      "instructions": "# Given an integer n, return a string array answer (1-indexed) where:\n# answer[i] == 'FizzBuzz' if i is divisible by 3 and 5.\n# answer[i] == 'Fizz' if i is divisible by 3.\n# answer[i] == 'Buzz' if i is divisible by 5.\n# answer[i] == i (as a string) otherwise.",
+      "examples": "# Input: n = 5 -> Output: ['1','2','Fizz','4','Buzz']\n# Input: n = 3 -> Output: ['1','2','Fizz']",
+      "optimal solution": "# Optimal Python solution:\ndef fizzBuzz(n):\n    result = []\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            result.append('FizzBuzz')\n        elif i % 3 == 0:\n            result.append('Fizz')\n        elif i % 5 == 0:\n            result.append('Buzz')\n        else:\n            result.append(str(i))\n    return result",
+      "efficiency": "O(n)",
+      "patterns involved": ["Basic Logic"],
+      "solved": false
+    },
+    {
+      "name": "Palindrome Number",
+      "difficulty": "Easy",
+      "instructions": "# Given an integer x, return true if x is a palindrome, and false otherwise.",
+      "examples": "# Input: x = 121 -> True\n# Input: x = -121 -> False",
+      "optimal solution": "# Optimal Python solution:\ndef isPalindrome(x):\n    s = str(x)\n    return s == s[::-1]",
+      "efficiency": "O(d)", 
+      "patterns involved": ["String Manipulation"],
+      "solved": false
+    },
+    {
+      "name": "Reverse String",
+      "difficulty": "Easy",
+      "instructions": "# Write a function that reverses a string. The input string is given as a list of characters s.\n# Modify the input list in-place.",
+      "examples": "# Input: s = ['h','e','l','l','o'] -> Output: ['o','l','l','e','h']",
+      "optimal solution": "# Optimal Python solution:\ndef reverseString(s):\n    left, right = 0, len(s) - 1\n    while left < right:\n        s[left], s[right] = s[right], s[left]\n        left += 1\n        right -= 1\n    return s",
+      "efficiency": "O(n)",
+      "patterns involved": ["Two Pointers", "In-place Mutation"],
+      "solved": false
+    },
+    {
+      "name": "Count and Say",
+      "difficulty": "Easy",
+      "instructions": "# The count-and-say sequence is a sequence of digit strings defined by:\n# 1 is 'one 1' -> '11'\n# 11 is 'two 1s' -> '21'\n# 21 is 'one 2, one 1' -> '1211', and so on.\n# Given an integer n, return the nth term of the count-and-say sequence.",
+      "examples": "# Input: n = 1 -> '1'\n# Input: n = 4 -> '1211'",
+      "optimal solution": "# Optimal Python solution:\ndef countAndSay(n):\n    s = '1'\n    for _ in range(n - 1):\n        current, temp, count = s[0], '', 0\n        for char in s:\n            if char == current:\n                count += 1\n            else:\n                temp += str(count) + current\n                current = char\n                count = 1\n        temp += str(count) + current\n        s = temp\n    return s",
+      "efficiency": "O(n * m)", 
+      "patterns involved": ["String Manipulation"],
+      "solved": false
+    },
+    {
+      "name": "Integer to Roman",
+      "difficulty": "Medium",
+      "instructions": "# Given an integer, convert it to a Roman numeral. The integer is guaranteed to be within the range 1 to 3999.",
+      "examples": "# Input: 3 -> 'III'\n# Input: 58 -> 'LVIII'",
+      "optimal solution": "# Optimal Python solution:\ndef intToRoman(num):\n    roman_numerals = [\n        (1000, 'M'), (900, 'CM'), (500, 'D'), (400, 'CD'),\n        (100, 'C'), (90, 'XC'), (50, 'L'), (40, 'XL'),\n        (10, 'X'), (9, 'IX'), (5, 'V'), (4, 'IV'), (1, 'I')\n    ]\n    res = []\n    for val, sym in roman_numerals:\n        while num >= val:\n            num -= val\n            res.append(sym)\n    return ''.join(res)",
+      "efficiency": "O(1)", 
+      "patterns involved": ["Greedy"],
+      "solved": false
+    },
+    {
+      "name": "Roman to Integer",
+      "difficulty": "Medium",
+      "instructions": "# Given a Roman numeral, convert it to an integer. Roman numerals are based on the following symbols:\n# I(1), V(5), X(10), L(50), C(100), D(500), M(1000).",
+      "examples": "# Input: 'III' -> 3\n# Input: 'LVIII' -> 58",
+      "optimal solution": "# Optimal Python solution:\ndef romanToInt(s):\n    roman_map = {'I':1, 'V':5, 'X':10, 'L':50, 'C':100, 'D':500, 'M':1000}\n    result = 0\n    for i in range(len(s)):\n        if i+1 < len(s) and roman_map[s[i]] < roman_map[s[i+1]]:\n            result -= roman_map[s[i]]\n        else:\n            result += roman_map[s[i]]\n    return result",
+      "efficiency": "O(n)",
+      "patterns involved": ["Parsing", "String Manipulation"],
+      "solved": false
+    },
+    {
+      "name": "Generate Parentheses",
+      "difficulty": "Medium",
+      "instructions": "# Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.",
+      "examples": "# Input: n = 3 -> ['((()))','(()())','(())()','()(())','()()()']",
+      "optimal solution": "# Optimal Python solution (backtracking):\ndef generateParenthesis(n):\n    res = []\n    def backtrack(cur, open_count, close_count):\n        if len(cur) == 2*n:\n            res.append(''.join(cur))\n            return\n        if open_count < n:\n            cur.append('(')\n            backtrack(cur, open_count+1, close_count)\n            cur.pop()\n        if close_count < open_count:\n            cur.append(')')\n            backtrack(cur, open_count, close_count+1)\n            cur.pop()\n    backtrack([], 0, 0)\n    return res",
+      "efficiency": "O(Catalan(n))",
+      "patterns involved": ["Backtracking"],
+      "solved": false
+    },
+    {
+      "name": "String to Integer (atoi)",
+      "difficulty": "Medium",
+      "instructions": "# Implement the myAtoi(string s) function, which converts a string to a 32-bit signed integer (similar to C/C++ atoi).",
+      "examples": "# Input: '42' -> 42\n# Input: '   -42' -> -42\n# Input: '4193 with words' -> 4193",
+      "optimal solution": "# Optimal Python solution:\ndef myAtoi(s):\n    s = s.lstrip()\n    if not s: return 0\n    sign = 1\n    if s[0] in ['+','-']:\n        if s[0] == '-':\n            sign = -1\n        s = s[1:]\n    res = 0\n    for char in s:\n        if char.isdigit():\n            res = res*10 + int(char)\n        else:\n            break\n    res *= sign\n    INT_MAX, INT_MIN = 2**31 - 1, -2**31\n    if res > INT_MAX: return INT_MAX\n    if res < INT_MIN: return INT_MIN\n    return res",
+      "efficiency": "O(n)",
+      "patterns involved": ["String Parsing"],
+      "solved": false
+    },
+    {
+      "name": "Regular Expression Matching",
+      "difficulty": "Hard",
+      "instructions": "# Given an input string s and a pattern p, implement regular expression matching with support for '.' and '*'.",
+      "examples": "# Input: s = 'aa', p = 'a' -> False\n# Input: s = 'aa', p = 'a*' -> True\n# Input: s = 'ab', p = '.*' -> True",
+      "optimal solution": "# Dynamic Programming approach:\ndef isMatch(s, p):\n    dp = [[False]*(len(p)+1) for _ in range(len(s)+1)]\n    dp[0][0] = True\n\n    for j in range(1, len(p)+1):\n        if p[j-1] == '*':\n            dp[0][j] = dp[0][j-2]\n\n    for i in range(1, len(s)+1):\n        for j in range(1, len(p)+1):\n            if p[j-1] in {s[i-1], '.'}:\n                dp[i][j] = dp[i-1][j-1]\n            elif p[j-1] == '*':\n                dp[i][j] = dp[i][j-2]\n                if p[j-2] in {s[i-1], '.'}:\n                    dp[i][j] = dp[i][j] or dp[i-1][j]\n    return dp[len(s)][len(p)]",
+      "efficiency": "O(m * n)", 
+      "patterns involved": ["Dynamic Programming", "String Matching"],
+      "solved": false
+    },
+    {
+      "name": "Wildcard Matching",
+      "difficulty": "Hard",
+      "instructions": "# Given a string s and a pattern p, implement wildcard pattern matching with support for '?' and '*'.",
+      "examples": "# Input: s = 'aa', p = 'a' -> False\n# Input: s = 'aa', p = '*' -> True\n# Input: s = 'cb', p = '?a' -> False",
+      "optimal solution": "# Dynamic Programming approach:\ndef isMatch(s, p):\n    dp = [[False]*(len(p)+1) for _ in range(len(s)+1)]\n    dp[0][0] = True\n\n    for j in range(1, len(p)+1):\n        if p[j-1] == '*':\n            dp[0][j] = dp[0][j-1]\n\n    for i in range(1, len(s)+1):\n        for j in range(1, len(p)+1):\n            if p[j-1] in {s[i-1], '?'}:\n                dp[i][j] = dp[i-1][j-1]\n            elif p[j-1] == '*':\n                dp[i][j] = dp[i][j-1] or dp[i-1][j]\n    return dp[len(s)][len(p)]",
+      "efficiency": "O(m * n)", 
+      "patterns involved": ["Dynamic Programming", "String Matching"],
+      "solved": false
+    }
+  ]

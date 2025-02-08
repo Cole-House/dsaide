@@ -1,0 +1,102 @@
+[
+    {
+      "name": "Two Sum",
+      "difficulty": "Easy",
+      "instructions": "# Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.",
+      "examples": "# Input: nums = [2,7,11,15], target = 9 -> Output: [0,1]\n# Input: nums = [3,2,4], target = 6 -> Output: [1,2]",
+      "optimal solution": "# Optimal Python solution using hashing:\ndef twoSum(nums, target):\n    hashmap = {}\n    for i, val in enumerate(nums):\n        complement = target - val\n        if complement in hashmap:\n            return [hashmap[complement], i]\n        hashmap[val] = i\n    return []",
+      "efficiency": "O(n)",
+      "patterns involved": ["Hash Map"],
+      "solved": false
+    },
+    {
+      "name": "Contains Duplicate",
+      "difficulty": "Easy",
+      "instructions": "# Given an integer array nums, return true if any value appears at least twice in the array, otherwise false.",
+      "examples": "# Input: [1,2,3,1] -> True\n# Input: [1,2,3,4] -> False",
+      "optimal solution": "# Optimal Python solution:\ndef containsDuplicate(nums):\n    seen = set()\n    for num in nums:\n        if num in seen:\n            return True\n        seen.add(num)\n    return False",
+      "efficiency": "O(n)",
+      "patterns involved": ["Hash Set"],
+      "solved": false
+    },
+    {
+      "name": "Single Number",
+      "difficulty": "Easy",
+      "instructions": "# Given a non-empty array of integers, every element appears twice except for one. Find that single one.",
+      "examples": "# Input: [2,2,1] -> 1\n# Input: [4,1,2,1,2] -> 4",
+      "optimal solution": "# Optimal Python solution using XOR:\ndef singleNumber(nums):\n    result = 0\n    for num in nums:\n        result ^= num\n    return result",
+      "efficiency": "O(n)",
+      "patterns involved": ["Bit Manipulation"],
+      "solved": false
+    },
+    {
+      "name": "Intersection of Two Arrays",
+      "difficulty": "Easy",
+      "instructions": "# Given two integer arrays nums1 and nums2, return an array of their intersection.",
+      "examples": "# Input: nums1 = [1,2,2,1], nums2 = [2,2] -> [2]\n# Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4] -> [9,4]",
+      "optimal solution": "# Optimal Python solution:\ndef intersection(nums1, nums2):\n    set1, set2 = set(nums1), set(nums2)\n    return list(set1.intersection(set2))",
+      "efficiency": "O(n + m)",
+      "patterns involved": ["Set Operations"],
+      "solved": false
+    },
+    {
+      "name": "3Sum",
+      "difficulty": "Medium",
+      "instructions": "# Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that they sum to 0.",
+      "examples": "# Input: [-1,0,1,2,-1,-4] -> [[-1,-1,2],[-1,0,1]]",
+      "optimal solution": "# Optimal Python solution (Two Pointers after sorting):\ndef threeSum(nums):\n    nums.sort()\n    res = []\n    for i in range(len(nums)):\n        if i > 0 and nums[i] == nums[i-1]:\n            continue\n        left, right = i+1, len(nums)-1\n        while left < right:\n            total = nums[i] + nums[left] + nums[right]\n            if total < 0:\n                left += 1\n            elif total > 0:\n                right -= 1\n            else:\n                res.append([nums[i], nums[left], nums[right]])\n                while left < right and nums[left] == nums[left+1]:\n                    left += 1\n                while left < right and nums[right] == nums[right-1]:\n                    right -= 1\n                left += 1\n                right -= 1\n    return res",
+      "efficiency": "O(n^2)",
+      "patterns involved": ["Two Pointers", "Sorting"],
+      "solved": false
+    },
+    {
+      "name": "Group Anagrams",
+      "difficulty": "Medium",
+      "instructions": "# Given an array of strings, group the anagrams together.",
+      "examples": "# Input: ['eat','tea','tan','ate','nat','bat'] -> [['bat'],['nat','tan'],['ate','eat','tea']]",
+      "optimal solution": "# Optimal Python solution:\ndef groupAnagrams(strs):\n    mapping = {}\n    for s in strs:\n        sorted_s = ''.join(sorted(s))\n        if sorted_s not in mapping:\n            mapping[sorted_s] = []\n        mapping[sorted_s].append(s)\n    return list(mapping.values())",
+      "efficiency": "O(n * k log k)",
+      "patterns involved": ["Hash Map", "String Manipulation"],
+      "solved": false
+    },
+    {
+      "name": "Valid Sudoku",
+      "difficulty": "Medium",
+      "instructions": "# Determine if a 9x9 Sudoku board is valid. Only the filled cells need to be validated.",
+      "examples": "# Input: a 9x9 board -> True or False depending on the validity",
+      "optimal solution": "# Optimal Python solution:\ndef isValidSudoku(board):\n    rows = [set() for _ in range(9)]\n    cols = [set() for _ in range(9)]\n    boxes = [set() for _ in range(9)]\n    for r in range(9):\n        for c in range(9):\n            val = board[r][c]\n            if val == '.':\n                continue\n            if val in rows[r] or val in cols[c] or val in boxes[(r//3)*3 + (c//3)]:\n                return False\n            rows[r].add(val)\n            cols[c].add(val)\n            boxes[(r//3)*3 + (c//3)].add(val)\n    return True",
+      "efficiency": "O(1)", 
+      "patterns involved": ["Hash Set", "Matrix Validation"],
+      "solved": false
+    },
+    {
+      "name": "Top K Frequent Elements",
+      "difficulty": "Medium",
+      "instructions": "# Given an integer array nums and an integer k, return the k most frequent elements.",
+      "examples": "# Input: nums = [1,1,1,2,2,3], k = 2 -> [1,2]",
+      "optimal solution": "# Optimal Python solution:\nimport heapq\n\ndef topKFrequent(nums, k):\n    count_map = {}\n    for num in nums:\n        count_map[num] = count_map.get(num, 0) + 1\n    freq_heap = [(-freq, num) for num, freq in count_map.items()]\n    heapq.heapify(freq_heap)\n    return [heapq.heappop(freq_heap)[1] for _ in range(k)]",
+      "efficiency": "O(n log n)",
+      "patterns involved": ["Hash Map", "Heap"],
+      "solved": false
+    },
+    {
+      "name": "First Missing Positive",
+      "difficulty": "Hard",
+      "instructions": "# Given an unsorted integer array nums, return the smallest missing positive integer.",
+      "examples": "# Input: [1,2,0] -> 3\n# Input: [3,4,-1,1] -> 2",
+      "optimal solution": "# Optimal Python solution (Index marking):\ndef firstMissingPositive(nums):\n    n = len(nums)\n    for i in range(n):\n        if nums[i] <= 0:\n            nums[i] = n+1\n\n    for i in range(n):\n        val = abs(nums[i])\n        if 1 <= val <= n and nums[val-1] > 0:\n            nums[val-1] = -nums[val-1]\n\n    for i in range(n):\n        if nums[i] > 0:\n            return i+1\n    return n+1",
+      "efficiency": "O(n)",
+      "patterns involved": ["Array Index Manipulation"],
+      "solved": false
+    },
+    {
+      "name": "Median of Two Sorted Arrays",
+      "difficulty": "Hard",
+      "instructions": "# Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.",
+      "examples": "# Input: nums1=[1,3], nums2=[2] -> 2.0\n# Input: nums1=[1,2], nums2=[3,4] -> 2.5",
+      "optimal solution": "# Optimal Python solution (Binary Search):\ndef findMedianSortedArrays(nums1, nums2):\n    A, B = nums1, nums2\n    total = len(A) + len(B)\n    half = total // 2\n    if len(A) > len(B):\n        A, B = B, A\n    l, r = 0, len(A)-1\n\n    while True:\n        i = (l + r) // 2\n        j = half - i - 1\n        Aleft = A[i] if i >= 0 else float('-inf')\n        Aright = A[i+1] if (i+1) < len(A) else float('inf')\n        Bleft = B[j] if j >= 0 else float('-inf')\n        Bright = B[j+1] if (j+1) < len(B) else float('inf')\n\n        if Aleft <= Bright and Bleft <= Aright:\n            if total % 2:\n                return min(Aright, Bright)\n            return (max(Aleft, Bleft) + min(Aright, Bright))/2\n        elif Aleft > Bright:\n            r = i - 1\n        else:\n            l = i + 1",
+      "efficiency": "O(log(min(m,n)))",
+      "patterns involved": ["Binary Search", "Arrays"],
+      "solved": false
+    }
+  ]

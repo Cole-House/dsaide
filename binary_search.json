@@ -1,0 +1,102 @@
+[
+    {
+      "name": "Binary Search",
+      "difficulty": "Easy",
+      "instructions": "# Given a sorted (in ascending order) integer array nums of n elements and a target value, return the index if the target is found.\n# If not, return where it would be if it were inserted in order.",
+      "examples": "# Input: nums = [-1,0,3,5,9,12], target = 9 -> Output: 4\n# Input: nums = [-1,0,3,5,9,12], target = 2 -> Output: insertion index",
+      "optimal solution": "# Standard binary search:\ndef searchInsert(nums, target):\n    left, right = 0, len(nums)-1\n    while left <= right:\n        mid = (left + right) // 2\n        if nums[mid] == target:\n            return mid\n        elif nums[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n    return left",
+      "efficiency": "O(log n)",
+      "patterns involved": ["Binary Search"],
+      "solved": false
+    },
+    {
+      "name": "Guess Number Higher or Lower",
+      "difficulty": "Easy",
+      "instructions": "# We are playing the Guess Game. The game is as follows:\n# I pick a number from 1 to n. You have to guess which number I picked.\n# Return the guess index if correct, else adjust your search.",
+      "examples": "# If n = 10, pick = 6, your guesses would lead to mid points in a binary search manner.",
+      "optimal solution": "# Standard binary search approach:\ndef guessNumber(n):\n    left, right = 1, n\n    while left <= right:\n        mid = (left + right)//2\n        # guess(mid) returns -1 if my number is lower, 1 if higher, 0 if correct\n        result = guess(mid)\n        if result == 0:\n            return mid\n        elif result < 0:\n            right = mid - 1\n        else:\n            left = mid + 1",
+      "efficiency": "O(log n)",
+      "patterns involved": ["Binary Search"],
+      "solved": false
+    },
+    {
+      "name": "Sqrt(x)",
+      "difficulty": "Easy",
+      "instructions": "# Given a non-negative integer x, compute and return the square root of x. Return only the integer part.",
+      "examples": "# Input: x = 4 -> 2\n# Input: x = 8 -> 2 (because sqrt(8) is about 2.828...)",
+      "optimal solution": "# Binary search for sqrt:\ndef mySqrt(x):\n    left, right = 0, x\n    while left <= right:\n        mid = (left + right) // 2\n        if mid*mid <= x < (mid+1)*(mid+1):\n            return mid\n        elif mid*mid > x:\n            right = mid - 1\n        else:\n            left = mid + 1",
+      "efficiency": "O(log x)",
+      "patterns involved": ["Binary Search", "Math"],
+      "solved": false
+    },
+    {
+      "name": "Valid Perfect Square",
+      "difficulty": "Easy",
+      "instructions": "# Given a positive integer num, write a function which returns true if num is a perfect square, otherwise false.",
+      "examples": "# Input: 16 -> True\n# Input: 14 -> False",
+      "optimal solution": "# Binary search:\ndef isPerfectSquare(num):\n    left, right = 1, num\n    while left <= right:\n        mid = (left+right)//2\n        sq = mid*mid\n        if sq == num:\n            return True\n        elif sq < num:\n            left = mid+1\n        else:\n            right = mid-1\n    return False",
+      "efficiency": "O(log n)",
+      "patterns involved": ["Binary Search", "Math"],
+      "solved": false
+    },
+    {
+      "name": "Search in Rotated Sorted Array",
+      "difficulty": "Medium",
+      "instructions": "# Given the array nums after it has been rotated, return the index of the target if found, otherwise -1.",
+      "examples": "# Input: nums=[4,5,6,7,0,1,2], target=0 -> 4\n# Input: nums=[4,5,6,7,0,1,2], target=3 -> -1",
+      "optimal solution": "# Binary search with pivot detection:\ndef search(nums, target):\n    left, right = 0, len(nums)-1\n    while left <= right:\n        mid = (left + right)//2\n        if nums[mid] == target:\n            return mid\n        if nums[left] <= nums[mid]:\n            # left half is sorted\n            if nums[left] <= target < nums[mid]:\n                right = mid - 1\n            else:\n                left = mid + 1\n        else:\n            # right half is sorted\n            if nums[mid] < target <= nums[right]:\n                left = mid + 1\n            else:\n                right = mid - 1\n    return -1",
+      "efficiency": "O(log n)",
+      "patterns involved": ["Binary Search", "Rotated Array"],
+      "solved": false
+    },
+    {
+      "name": "Find Minimum in Rotated Sorted Array",
+      "difficulty": "Medium",
+      "instructions": "# Suppose an array of length n sorted in ascending order is rotated between 1 and n times. Return the minimum element.",
+      "examples": "# Input: [3,4,5,1,2] -> 1\n# Input: [4,5,6,7,0,1,2] -> 0",
+      "optimal solution": "# Binary search approach:\ndef findMin(nums):\n    left, right = 0, len(nums)-1\n    while left < right:\n        mid = (left+right)//2\n        if nums[mid] > nums[right]:\n            left = mid + 1\n        else:\n            right = mid\n    return nums[left]",
+      "efficiency": "O(log n)",
+      "patterns involved": ["Binary Search", "Rotated Array"],
+      "solved": false
+    },
+    {
+      "name": "Search a 2D Matrix",
+      "difficulty": "Medium",
+      "instructions": "# Write an efficient algorithm that searches for a value in an m x n matrix. Integers in each row are sorted left to right.\n# The first integer of each row is greater than the last integer of the previous row.",
+      "examples": "# Input: matrix=[[1,3,5,7],[10,11,16,20],[23,30,34,60]], target=3 -> True",
+      "optimal solution": "# Flattened binary search:\ndef searchMatrix(matrix, target):\n    if not matrix or not matrix[0]:\n        return False\n    m, n = len(matrix), len(matrix[0])\n    left, right = 0, m*n - 1\n\n    while left <= right:\n        mid = (left + right)//2\n        val = matrix[mid//n][mid%n]\n        if val == target:\n            return True\n        elif val < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n    return False",
+      "efficiency": "O(log(m*n))",
+      "patterns involved": ["Binary Search", "Matrix"],
+      "solved": false
+    },
+    {
+      "name": "Kth Smallest Element in a Sorted Matrix",
+      "difficulty": "Medium",
+      "instructions": "# Given an n x n matrix where each of the rows and columns is sorted in ascending order, return the kth smallest element.",
+      "examples": "# Input: matrix = [[1,5,9],[10,11,13],[12,13,15]], k=8 -> 13",
+      "optimal solution": "# Binary search on value range:\ndef kthSmallest(matrix, k):\n    n = len(matrix)\n    left, right = matrix[0][0], matrix[-1][-1]\n\n    def lessEqual(x):\n        # returns count of elements <= x\n        count = 0\n        c = n-1\n        for r in range(n):\n            while c >= 0 and matrix[r][c] > x:\n                c -= 1\n            count += (c + 1)\n        return count\n\n    while left < right:\n        mid = (left + right)//2\n        if lessEqual(mid) < k:\n            left = mid + 1\n        else:\n            right = mid\n    return left",
+      "efficiency": "O(n log R)",
+      "patterns involved": ["Binary Search", "Matrix", "Two Pointers"],
+      "solved": false
+    },
+    {
+      "name": "Median of Two Sorted Arrays",
+      "difficulty": "Hard",
+      "instructions": "# Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.",
+      "examples": "# Input: nums1=[1,3], nums2=[2] -> 2.0\n# Input: nums1=[1,2], nums2=[3,4] -> 2.5",
+      "optimal solution": "# Binary Search approach:\ndef findMedianSortedArrays(nums1, nums2):\n    A, B = nums1, nums2\n    total = len(A) + len(B)\n    half = total // 2\n    if len(A) > len(B):\n        A, B = B, A\n    left, right = 0, len(A)-1\n\n    while True:\n        i = (left + right) // 2\n        j = half - i - 1\n        Aleft = A[i] if i >= 0 else float('-inf')\n        Aright = A[i+1] if i+1 < len(A) else float('inf')\n        Bleft = B[j] if j >= 0 else float('-inf')\n        Bright = B[j+1] if (j+1) < len(B) else float('inf')\n\n        if Aleft <= Bright and Bleft <= Aright:\n            if total % 2:\n                return min(Aright, Bright)\n            return (max(Aleft, Bleft) + min(Aright, Bright)) / 2\n        elif Aleft > Bright:\n            right = i - 1\n        else:\n            left = i + 1",
+      "efficiency": "O(log(min(m,n)))",
+      "patterns involved": ["Binary Search", "Arrays"],
+      "solved": false
+    },
+    {
+      "name": "Split Array Largest Sum",
+      "difficulty": "Hard",
+      "instructions": "# Given an array nums which consists of non-negative integers and an integer m, you can split the array into m non-empty continuous subarrays.\n# Minimize the largest sum among these m subarrays.",
+      "examples": "# Input: nums=[7,2,5,10,8], m=2 -> 18 (subarray partition: [7,2,5] and [10,8])",
+      "optimal solution": "# Binary search on answer:\ndef splitArray(nums, m):\n    left, right = max(nums), sum(nums)\n\n    def canSplit(mid):\n        count, current_sum = 1, 0\n        for num in nums:\n            if current_sum + num > mid:\n                count += 1\n                current_sum = num\n            else:\n                current_sum += num\n            if count > m:\n                return False\n        return True\n\n    while left < right:\n        mid = (left + right)//2\n        if canSplit(mid):\n            right = mid\n        else:\n            left = mid + 1\n    return left",
+      "efficiency": "O(n log(sum(nums)))",
+      "patterns involved": ["Binary Search", "Prefix Sum"],
+      "solved": false
+    }
+  ]
