@@ -1,0 +1,97 @@
+/* Body styling: yellow "sticky note" background, Comic Sans font, black text */
+body,
+html {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Center the content inside the container */
+.container {
+  text-align: center;
+}
+
+/* Centered title */
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Master (category) buttons in a row */
+#category-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* Category buttons styled with a rainbow-ish palette (using nth-child) */
+.category-btn {
+  border: 2px solid black;
+  padding: 10px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.category-btn:nth-child(1) {
+  background-color: #ff9999; /* Reddish */
+}
+
+.category-btn:nth-child(2) {
+  background-color: #ffcc99; /* Orange-ish */
+}
+
+.category-btn:nth-child(3) {
+  background-color: #ffff99; /* Yellow */
+}
+
+.category-btn:nth-child(4) {
+  background-color: #ccff99; /* Green */
+}
+
+.category-btn:nth-child(5) {
+  background-color: #99ccff; /* Blue */
+}
+
+.category-btn:hover {
+  transform: scale(1.05);
+}
+
+/* Container where the problem list is displayed */
+.problems-container {
+  background-color: white;
+  border: 2px solid black;
+  padding: 10px;
+}
+
+/* Each row in the problem list */
+.problem-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid black;
+  padding: 10px 0;
+}
+
+/* Problem info (name, difficulty, patterns) together */
+.problem-info {
+  font-weight: bold;
+}
+
+/* Start/Resolve button styling (green button) */
+.start-btn {
+  background-color: green;
+  color: #fff;
+  border: 2px solid black;
+  padding: 6px 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.start-btn:hover {
+  opacity: 0.8;
+}
