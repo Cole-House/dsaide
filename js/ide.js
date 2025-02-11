@@ -85,6 +85,17 @@ var layoutConfig = {
                 }
             }]
         }]
+    }, 
+    {
+        type: "component",
+        width: 20,
+        componentName: "chatInterface",
+        id: "stdout",
+        title: "Output",
+        isClosable: false,
+        componentState: {
+            readOnly: true
+        }
     }]
 };
 
@@ -426,6 +437,19 @@ async function getLanguage(flavor, languageId) {
         });
     });
 }
+
+// START OF FUNCTIONS
+
+// async function sendMessage() {}
+    // This is where the user's message is sent to the bot + context     
+
+// async function receiveMessage() {
+
+// async function addUserMessage() and addTypingIndicator() {}
+
+// need a timeout function to simulate the bot typing or default response
+
+
 
 function setDefaults() {
     setFontSizeForAllEditors(fontSize);
