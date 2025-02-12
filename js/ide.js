@@ -89,12 +89,12 @@ var layoutConfig = {
     {
         type: "component",
         width: 20,
-        componentName: "chatInterface",
-        id: "stdout",
-        title: "Output",
+        componentName: "chat",
+        id: "chat",
+        title: "Code Assistant",
         isClosable: false,
         componentState: {
-            readOnly: true
+            readOnly: false
         }
     }]
 };
@@ -605,6 +605,13 @@ document.addEventListener("DOMContentLoaded", async function () {
                     enabled: false
                 }
             });
+        });
+
+        layout.registerComponent("chat", function (container, state) {
+            // chatEditor = monaco.editor.create(container.getElement()[0], {
+            //     automaticLayout: true,
+            //     scrollBeyondLastLine: false,
+            //     readOnly: state.readOnly,
         });
 
         layout.on("initialised", function () {
